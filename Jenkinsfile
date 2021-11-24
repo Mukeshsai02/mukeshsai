@@ -13,18 +13,8 @@ pipeline {
    stage('checkout') {
          steps {
             // Get some code from a GitHub repository
-            git 'https://github.com/164411Prathyusha/Prat-game-of-life.git'
+            git 'https://github.com/saimtej/saimtej.git'
         }
-        
-        }
-	stage ('Compile and Build') {
-         steps {
-           sh '''
-           mvn clean install -U  -Dmaven.test.skip=true 
-           '''
-         }
-	}
-
          }
 	}
 
