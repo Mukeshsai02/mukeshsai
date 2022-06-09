@@ -1,0 +1,87 @@
+Volumes
+-------------------------
+It is used to store the containers 
+we can retrieve the containers data if it is either stopped or deleted by using volume
+
+
+docker volume ls	- list all volumes
+docker volume command 	- help
+
+docker volume create test-volume
+  create      Create a volume
+  inspect     Display detailed information on one or more volumes
+  ls          List volumes
+  prune       Remove all unused local volumes
+  rm          Remove one or more volumes
+docker inspect volume test-volume	- to see the path of the volume 
+
+
+docker run --name jenkins -p 7070:8080 -p 6000:6000 -v test-volume:/var/jenkins_home docker.io/jenkins/jenkins:latest
+621405b84a474106b96369eb9fefd34e
+
+docker run --name jenkins -p 0202:8080 -p 6000:6000 -v test-volume:/var/jenkins_home docker.io/jenkins/jenkins:latest
+won't create pswd bcz of same volume
+
+docker rm $(docker ps -a -f status=exited -q)
+
+create a new directory path with using same volumes
+mkdir jenkins_test_path
+chmod 777 jenkins_test_path
+cd jenkins_test_path
+mv jenkins_test_path/ /var
+cd /var/jenkins_test_path
+pwd - /var/jenkins_test_path
+
+
+docker run --name jenkins -p 7070:8080 -p 4000:4000 -v /var/jenkins_test_path:/var/jenkins_home docker.io/jenkins/jenkins:latest
+8d0ba79347554351b929bac94961793d
+
+
+
+Networks
+--------------------------------------------------------------
+
+docker network ls
+
+
+Bridge network
+--------------------------------------------
+docker run -itd --name=alpine1 alpine
+docker run -itd --name=alpine2 alpine
+
+docker inspect network bridge
+we will go into one container and ping another container
+docker exec -it name sh
+ping ipv4
+
+customized network
+-------------------------------------
+docker network create --driver=bridge mukesh   		- creating customized network
+docker run -itd --name=alpine1 --network=mukesh alpine
+docker inspect network mukesh
+ping ipv4 or container
+
+Host Network
+----------------------------------
+ is a networking mode in which a Docker container shares its network namespace with the host machine. The application inside the container can be accessed using a port at the host's IP address.
+we can run using host network or port mapping network
+
+we are mapping containerport to host port 
+for host port we already gave access in inbound security groups
+
+			container : host port
+docker run -it --name jenkins -p 7070:8080 -p 6000:6000 -v test-volume:/var/jenkins_home docker.io/jenkins/jenkins:latest
+
+To run using host port without performing host operations
+docker run -it --network host docker.io/jenkins/jenkins:latest
+
+None network
+--------------------------------
+It won't contains network just img will create
+
+docker run -it --network none centos /bin/bash
+
+default bridge network  -> communicate with only ip address 
+customized bridge network   -> communicate with ip address and container
+host network 		-> communicate directly to host networks
+ps aux 			-> To check the namespaces

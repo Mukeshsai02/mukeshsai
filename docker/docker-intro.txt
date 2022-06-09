@@ -1,0 +1,89 @@
+https://docs.docker.com/get-started/overview/
+⭐️ Course Contents ⭐️
+⌨️ (0:00:00) Introduction
+⌨️ (0:02:35) Docker Overview
+⌨️ (0:05:10) Getting Started
+⌨️ (0:16:58) Install Docker
+⌨️ (0:21:00) Commands
+⌨️ (0:29:00) Labs
+⌨️ (0:33:12) Run
+⌨️ (0:42:19) Environment Variables
+⌨️ (0:44:07) Images
+⌨️ (0:51:38) CMD vs ENTRYPOINT
+⌨️ (0:58:37) Networking
+⌨️ (1:03:55) Storage
+⌨️ (1:16:27) Compose
+⌨️ (1:34:49) Registry
+⌨️ (1:39:38) Engine
+⌨️ (1:46:20) Docker on Windows
+⌨️ (1:53:22) Docker on Mac
+⌨️ (1:55:20) Container Orchestration
+⌨️ (1:59:25) Docker Swarm
+
+⌨️ (2:03:21) Kubernetes
+⌨️ (2:09:30) Conclusion
+
+
+
+physical machine
+laptop/desktop
+Os
+100gb harddisk
+
+Jenkins ------ usage 5gb
+
+Suppose in a ubuntu machine if we utilised only jenkins for 5 gb rest 95 gb is wasted cost of purchasing and wasting is loss of money
+
+From this we got virtual machines
+
+     Virtual machine
+25      25       25         25
+ubuntu centos    fedora     windows
+jenkins
+apt-get  yum                 
+each Os utilised only 20gb remaining 10gb is wasted to overcome this they introduced docker
+
+
+Docker - It's an Os level virtualisation
+- Docker takes Linux Kernal os as an Os
+
+Docker Hub
+-From dockerhub we pull images to docker, it acts as github 
+- It's an registry 
+
+> With in docker we pull images and performs tasks and push it to registry, so there is no space wastage and utilization within docker
+> It just acts as Os to perform tasks
+> No memory consumption
+
+.Here container is an Vm instance- virtual machine and image is an os
+. To install jenkins in different OS no need use different commands to install it, instead of that we can use dockerfile to install jenkins in diff Os like windows, ubuntu , centos
+
+Docker file syntax:-  To save docker in 'Dockerfile'
+FROM                 ubuntu      ( this is an base image for docker file) using base image only os can be launched and performs below commands
+MAINTAINER           prathyusha@gmail.com
+RUN                  apt-get update && apt-get install jenkins && mkdir test
+WORKDIR               test/
+CMD                   [./shell]         (run time execution)
+ENTRYPOINT            [./shell]        (run as an execution)
+COPY                 /var/lib/jenkins/workspace/jar      test/
+ADD                  wget https://                 (git clone form remote or local rep)
+EXPOSE                 8083  ( Declare port to run in particular url)
+
+
+commands
+
+docker build -t jenkins .       (After writing docker file, to create image we use this command ( To build docker file, here it's to install jenkins file)
+docker run -it                  ( On one container it runs in interactive mode 'it' , it goes within machine and works function)
+Press ctrl+p, ctrl +s              (to come out on docker machine) 
+docker attach jenkins   (to go inside docker machine )
+docker exec -it conatainer /bin/bash   (other way to go inside dockr machine)
+
+We can use any way to go inside docker
+
+Docker Volume and Docker mount
+creating volume: 
+#docker volume create my-vol
+TO inspect path:
+#docker inspect volume volume-name
+Docker mount:
+sudo docker run -it -v geeksforgeeks:/shared-volume --name my-container-01 ubuntu

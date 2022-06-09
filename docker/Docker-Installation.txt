@@ -1,0 +1,72 @@
+Docker Installation steps:
+.........................
+sudo apt-get update
+https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
+
+sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add –
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+sudo apt update
+apt-cache policy docker-ce
+sudo apt install docker-ce   -Y
+sudo systemctl status docker
+docker -v   (to check version)
+
+Keep all the versions in handy they will ask all version question
+docker images  (to check images list)
+docker ps  (to check container list) -if we run images then only containers will start
+docker pull centos
+docker images - now we can see list of images ( this image is known as Os level virtualisation)
+docker ps - we wont see containerisation
+.To get container now run the docker image as below
+docker run -it --name test-centos centos
+yum-update  (to update updates)
+docker exec -it containername /bin/bash   - to go inside image
+docker stop centos    - stops the OS
+docker start centos   - starts the Os
+vi Dockerfile       ( D should be in caps)
+Content Inside file
+
+FROM        ubuntu
+MAINTAINER  prathyusha
+RUN         apt-get update -y && apt-get install maven -y 
+RUN         mkdir /usr/app 
+WORKDIR     /usr/app
+COPY        demo/usr/app
+
+after writing the file and save it then
+.executing using below cmd
+docker build -t ubuntu-test .
+              |_ t is for tag
+all the steps in docker file will execute in layers
+docker images - now check for below list of images created
+docker run -it --name ubuntu-test-c ubuntu-test (to enter inside ubuntu-test)
+check maven verion as :  mvn -version
+In docker file we have created maven to install directly so it installed utomatically
+by the dependencies of maven java installed automatically
+
+
+Task
+-----
+1.Write Docker file
+it should contain git
+maven 3.3.9
+java8
+jenkins
+port 8082 jenkins should open
+
+2.write 1 for sonar and run it.
+
+
+apt-get install tree
+
+3. Create dockerhub account and push the image to dockerhub
+
+
+
+
+
+
+
+
+

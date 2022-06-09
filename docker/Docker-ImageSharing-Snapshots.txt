@@ -1,0 +1,19 @@
+Create AMI image in aws -study more about this AMI service
+We can share all the created configuration from AMI image
+-Click on usernaame in aws and click on create and template-> click on Image
+-Give name in instance ID and then click on create
+- Now in services click on image -> AMIs -> select drop down Owned by me
+
+Ques on Docker: 
+what is docker
+container
+image
+cmd and entry point diff
+add copy diff
+docker file what r steps used
+networking and its types 
+Volumes
+docker file u only written or how it's
+
+
+..............................................

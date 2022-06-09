@@ -1,0 +1,58 @@
+https://github.com/wsargent/docker-cheat-sheet#containers
+
+https://www.freecodecamp.org/news/a-beginners-guide-to-docker-how-to-create-your-first-docker-application-cc03de9b639f/
+
+https://www.tutorialspoint.com/docker/docker_working_with_containers.htm
+------------------------------------------------------------------------
+
+Docker :
+	Docker is a container management service.The whole idea of Docker is for developers to easily develop applications, ship them into containers which can then be deployed anywhere
+
+Containers:
+	is a light weight applic'n we can manage our applic'n through containers we can deploy anywhere,any o.s,any setup without disturbing any pkgs any details we can deploy in safe manner.
+
+Docker Engine − It is used for building Docker images and creating Docker containers.
+Docker Hub − This is the registry which is used to host various Docker images.
+Docker Compose − This is used to define applications using multiple Docker containers.
+
+docker info - used to define the detailed info of the docker service installed.
+
+FROM ubuntu
+RUN apt-get update -y
+RUN mkdir /usr/app/
+WORKDIR  /usr/app/
+COPY gameoflife-build/target/gameoflife-build-1.0-SNAPSHOT.jar   /usr/app/
+
+docker images				- list imgs
+docker rmi [container id]		- to remove img
+docker ps 				- list the containers
+docker build -t python-test:doc .   	- to create a img
+docker run python-test			- to run a img name/repository
+docker run img id			- to run with img id
+sudo docker history centos 		- The above command will show all the commands that were run against the centos image 
+
+docker run -it --name docker-sample-c python-test -  to create container
+docker ps - to see containers
+docker ps -a - to see list of all containers
+docker exec -it [containerid] /bin/bash - to enter the container
+exit or ctrl-p,q  			- to exit the container
+docker stop [containerid]  		- to stop the container
+
+docker commit --change "ENV DEBUG=true" 1281cf9c4c4c 164411/nginx:v1
+
+docker commit 1281cf9c4c4c 164411/nginx
+
+docker login 
+    or
+docker login --username=yourhubusername --password=yourpassword
+
+	tag	img		/repository:versions
+docker tag bb38976d03cf yourhubusername/verse_gapminder:firsttry
+			/repository:versions
+docker push yourhubusername/verse_gapminder:version
+
+docker pull docker/verse
+
+
+
+sudo docker run –it centos /bin/bash  ??

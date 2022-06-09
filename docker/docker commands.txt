@@ -1,0 +1,136 @@
+    1  apt-get update -y
+    2  sudo apt-get install openjdk-8-jdk
+    3  adduser sonar
+    4  wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-6.7.6.zip
+    5  apt-get install unzip -y
+    6  unzip sonarqube-6.7.6.zip
+    7  sudo cp -r sonarqube-6.7.6 /opt/sonarqube
+    8  sudo chown -R sonar:sonar /opt/sonarqube
+    9  sudo vi /opt/sonarqube/bin/linux-x86-64/sonar.sh
+   10  sudo vi /opt/sonarqube/conf/sonar.properties
+   11  sudo vi /etc/systemd/system/sonar.service
+   12  sudo systemctl start sonar
+   13  sudo systemctl enable sonar
+   14  sudo systemctl status sonar
+   15  java -version
+   16  sudo systemctl status sonar
+   17  cd /var/log
+   18  ls -ltr
+   19  cd /opt
+   20  ls
+   21  cd sonarqube/
+   22  ls
+   23  cd conf/
+   24  ls
+   25  vi sonar.properties 
+   26  vi /etc/systemd/system/sonar.service
+   27  sudo vi /opt/sonarqube/bin/linux-x86-64/sonar.sh
+   28  cd /opt
+   29  ls
+   30  sudo wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227.zip
+   31  sudo unzip sonar-scanner-cli-3.2.0.1227.zip
+   32  mv sonar-scanner-cli-3.2.0.1227.zip sonar-scanner
+   33  ls
+   34  cd sonar-scanner
+   35  rm -rf sonar-scanner
+   36  mv sonar-scanner-3.2.0.1227 sonar-scanner
+   37  ls
+   38  cd sonar-scanner/
+   39  ls
+   40  cd ..
+   41  cd sonar-scanner/
+   42  ls
+   43  cd conf/
+   44  ls
+   45  vi sonar-scanner.properties 
+   46  cd ..
+   47  sudo systemctl start sonar
+   48  sudo systemctl enable sonar
+   49  sudo systemctl status sonar
+   50  pwd
+   51  cd sonar-scanner/
+   52  pwd
+   53  cd ../..
+   54  sudo apt-get update
+   55  java -version
+   56  sudo wget http://download.sonatype.com/nexus/3/nexus-3.22.0-02-unix.tar.gz
+   57  sudo tar -xvf nexus-3.22.0-02-unix.tar.gz
+   58  ls
+   59  sudo mv nexus-3.22.0-02 nexus
+   60  ls
+   61  sudo adduser nexus
+   62  sudo mv nexus /opt
+   63  ls
+   64  cd /opt
+   65     48  sudo systemctl enable sonar
+   66  cd nexus/
+   67  ls
+   68  cd ..
+   69  cd /root
+   70  ls
+   71  cd ..
+   72  sudo mv sonatype-work/ opt
+   73  cd /opt
+   74  ls
+   75  sudo chown -R nexus:nexus /opt/nexus
+   76  sudo chown -R nexus:nexus /opt/sonatype-work
+   77  sudo vim /opt/nexus/bin/nexus.rc
+   78  sudo vim /opt/nexus/bin/nexus.vmoptions
+   79  sudo vim /etc/systemd/system/nexus.service
+   80  sudo systemctl enable nexus
+   81  sudo systemctl start nexus
+   82  sudo systemctl status nexus
+   83  cd /opt/sonatype-work/nexus3/admin.password
+   84  vi /opt/sonatype-work/nexus3/admin.password
+   85  ls
+   86  ls -la
+   87  cd ..
+   88  ls
+   89  sudo apt-get update
+   90  docker -v
+   91  sudo -i
+   92  apt-get update
+   93  sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+   94  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add –
+   95  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add 
+   96  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+   97  sudo apt-get update
+   98  sudo apt-get install docker-ce
+   99  apt-cache policy docker-ce
+  100  sudo apt-get install docker-ce
+  101  sudo systemctl status docker
+  102  docker -v
+  103  docker images
+  104  docker ps
+  105  docker pull centos7
+  106  docker pull centos
+  107  docker images
+  108  docker ps
+  109  docker run -it --name test-centos centos
+  110  ls
+  111  docker ps
+  112  docker exec -it test-centos /bin/bash
+  113  docker ps
+  114  docker stop test-centos 
+  115  docker ps
+  116  docker ps -a
+  117  docker start test-centos 
+  118  docker ps -a
+  119  docker attach test-centos 
+  120  docker ps -a
+  121  vi Dockerfile
+  122  ls
+  123  mkdir demo
+  124  ls
+  125  pwd
+  126  vi Dockerfile
+  127  docker build -ubuntu-test .
+  128  docker build -t ubuntu-test .
+  129  docker images
+  130  docker run -it --name ubuntu-test-c ubuntu-test
+  131  docker ps
+  132  docker exec -it ubuntu-test-c /bin/bash
+  133  history
+  134  docker images
+  135  hisstory
+  136  history

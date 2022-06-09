@@ -1,0 +1,32 @@
+FROM ubuntu
+RUN apt-get update -y
+RUN mkdir /usr/app/
+WORKDIR  /usr/app/
+COPY gameoflife-build/target/gameoflife-build-1.0-SNAPSHOT.jar   /usr/app/
+
+........................
+My task
+
+FROM ubuntu
+RUN apt-get update -y && apt-get install openjdk-8-jdk && apt-get install maven -y 
+WORKDIR /usr/app
+git clone https://github.com/164411Prathyusha/Prat-game-of-life.git /usr/app
+
+while integrating with docker we need to provide permission to this file in docker
+#sudo chmod 666 /var/run/docker.sock
+
+
+gcloud auth activate-service-account 360601603683-compute@developer.gserviceaccount.com --key-file=authentic-ether-325306-7fa538de4139.json
+
+360601603683-compute@developer.gserviceaccount.com
+
+1 Microservices -down
+images pull backup
+error imagepull
+readiness probe /livenessprobe
+init-state 
+
+..............
+disastor recovery - through out global recovery
+
+
