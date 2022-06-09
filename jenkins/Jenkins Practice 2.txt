@@ -1,0 +1,112 @@
+Creating EC2 instance:
+
+Click on EC2 instance, 
+select free tier ubuntu server and - clicl nxt - keep default vpn - add storage from 8 to 100 - nxt 
+- key and name need to be provided -nxt- put some name to download key and then launch the instance and view it.
+
+Cls-9:
+
+ -To install plugins path is - navigate through - Dashboard - Manage Jenkins - Available - Install plugins
+> In Avaiable Install 'Maven Integration' plugin choose without restart 
+- To set tools like Java8 and maven with in jenkins - Manage Jenkins - Global tool configurations- 
+  java and maven r like global tool configurations, here env variables needs to be set in global configuration
+>To check with in ubuntu server abt env variables- cmd is $mvn -version (we can see both java & maven env variable path)
+> Now in global tool config click on 'Add JDK' Name- java8 & JAVA_HOME - provide the path from mvn version (there should not be any space paste upto before jre for jdk)
+> Again with in same global config click on 'Maven' Name- Maven_3.3.9 & Maven_Home - will be path of mvn version. 
+> After settingup of 'Maven' & 'Java' save it
+
+-Now create new pipeline using freestyle and click on Project configure and now with in Build env -
+'Build step' - slct "Invoke top level maven" when it select we can see global configured maven slct tat version 
+For Goals - to create jar & war it's -clean package  to delete jars & wars - clean
+-With the installation of maven integration only we can get top level maven in build step.
+-Run the build with the created test job using goals like clean package and clean in local near /var/lib/jenkins/workspace verify jar/war are creating & deleting
+
+> And in plugins install sonar quabe scanner and sonarqube generic install without restart
+
+> Now create new job and attach git repository link using feature branch it needs to clone
+using build execute with shell slct it and write commands, we can run build through tat also.
+
+cls-10:
+
+>Create a Job and select free style Job and in git configure provide git source code link
+> With in build triggers select 'Github hook triggersfor GitScm polling'
+> Install Github Integration Plugin 
+> In Github settings click on webhook and do add hook and copy jenkins URL/github-webhook/
+  content type - json
+ which event - send me everything
+ check 'Activate'
+ click on add hook
+> Now update 'Readme' file in git and save it - in jenikns for created job it will start executing automatinally
+> This is called CI when we interlink with webhook - job will trigger automatically if any code changes happen
+> In web hook settings while adding it for event selection if u click on indiviual event then their will be each particulr event  and it usages, we can 
+select as per our requirement.
+
+- There r 3 types of build triggeers (Interview que)
+1  Build Periodically - If we set some time though build happen or not it will trigger this is build periodically
+2  Poll SCM- Build will trigger after 5 min if we update anything in project. For every code push we can give time also at what time it needs 
+to trigger 
+Declaration eg: *****
+after 5 min means - 5**** (* in the sense 0)
+* - minute
+* - hour
+* - day
+* - month
+* - DOW (day of week ) (0 and 7 r sunday)
+3 Github hook trigger for GITScm polling - Build will trigger immediately with in nxt minute when we push code 
+
+ Test once build periodically and poll scm
+
+> Within manage plugins install Nexus Artifact and Nexus platform.
+> Install sonar qube and nexus in linux server
+
+
+- Creating Multi Branch Pipeline
+> Create new item by entering name ( name should be in lower case, no space b/w name, uses - for space) select multi branch piple line and then create it.
+> In configure - with in General slct - 'Add Source' - choose Git and paste github repository.
+> Now in git create any branch and create jenkins file writing code in grovy script, below is the jenkins file script.
+
+pipeline {
+   agent any
+  tools {
+      // Install the Maven version configured as "M3" and add it to the path.
+	  jdk 'Java8'
+      maven "Maven_3.3.9"
+   }
+   stages
+   {
+   stage('checkout') {
+         steps {
+            // Get some code from a GitHub repository
+            git 'https://github.com/164411Prathyusha/Prat-game-of-life.git'
+		
+        }
+        
+        }
+   }
+}
+ 
+> Now apply the job and save it. 
+> Click on 'Scan Multi pipeline now' we can see job got executed and check it in pipeline log .
+> with in status we can see both master and branch using jenkins file in git repository these branch and master wil visible
+> According to the env path added in global config set those in jenkins file it executes 
+> After adding env variable in jenkins path execute 'pipeline job' it will pass
+> Env var should be update in jenkins file for both master and branch successfully then only job passes else it fails
+> Why we using branch and master means code changes can be pushed to branch and we can check it in branch instead of directly checking in master
+ after checking in branch we can merge code changes to master. So for this we use multi branch piple line
+> The use of Multibranch pipeline is to test the selected branches before merging to master. 
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+

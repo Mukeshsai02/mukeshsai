@@ -1,0 +1,42 @@
+Jenkins has continues Integration and Continues delivery and deployement.
+
+> Devlopers push code to git and we took the code and using maven we build the code and perform CI/Cd operation.
+> But all the above steps we follow manually using command line but no one preper to do manually. 
+> Every thing needs to be automated through CI/Cd pipeline, To do CI/Cd pipeline we have many tools like Jenkins, CircleCI, AWS CodeBuild, Azure DevOps,
+ Atlassian Bamboo, or Travis CI among all we use Jenkins becoz - we have beautiful UI and we can get to where pipeline breaks and we can track easily.
+> There is image saved in jenkins folder pipeline workflow will follow same.
+> In Prod no one deploy the code directly there will be permissions given to deploy it we need to follow accordingly.
+
+################Jenkins Installation#######################
+>Url to follow installation steps : https://www.digitalocean.com/community/tutorials/how-to-install-jenkins-on-ubuntu-18-04  - after following all
+the steps it shows active state
+
+>by default port will run in 8080 - we can customize port also
+
+>public ip jenkins form aws console ubuntu instance- http://3.128.188.61:8080/
+>launch the port of http://3.128.188.61:8080  in browser
+>Jenkins home path is this - /var/lib/jenkins//secrets/initialAdminPassword 
+>And in ubuntu server  type $cat /var/lib/jenkins//secrets/initialAdminPassword - we can see pwd copy it and paste it in jenkins port and launch
+>Click on Install suggested plugin - by default plugins will install to get additional plugins we need to install it.
+> In server we can see all plugin, secret and Job details in this path /var/lib/jenkins
+.Create first Admin User:
+.Enter username, password, confirm password, full name and email address
+.copy and keep jenkins Url
+.click on start using jenkins
+.click on create a Job
+.Enter an item name, select free style Job click next
+. Slt source code management and inn the below details select Git and copy Github repository URL (if its public no need to provide credentials for private
+repository we need to give credentials) take game-of-life repository url and save and apply it.
+. and do build now option, check the build success and in console output it shows build workspace 
+. In ubuntu server go to workspace and open the build workspace path we can see game-of -life code
+. Within the workspace we can see created Jobs here 
+. If someone do code commis in master branch then build need to trigger automatically, so we use jenkins
+Eg: Game-of-life project is 1 feature to create 1 website there will be different features to create each build it will be difficult job, Using automation
+scripting we can create build and trigger job successfully.
+
+> For forget path in jenkins port use this link https://www.coachdevops.com/2020/08/jenkins-admin-password-unlock-forgotten.html
+  
+
+
+
+

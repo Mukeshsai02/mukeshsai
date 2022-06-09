@@ -1,0 +1,89 @@
+1. Do practice for customized port for jenkins browse it and do practice
+> In /var/lib/jenkins/
+cd /etc/default
+vi jenkins
+In that their will be 'HTTP_PORT' = 8080
+we can change the port and assign any randowm 4 digit value and save it
+> With in jenkins url restart it and give the given port instead of 8080 it should work successfully.
+
+restart - systemctl restart jenkins
+
+2. Steps to create a new user in Jenkins with only READ access
+what chmod will do dbt?
+
+
+Steps to create a new user
+
+    Login into Jenkins
+    Go to Manage Jenkins
+    Go to Create Users
+    Enter all the details – Username, Password, Confirm Pwd, FullName, Email
+    Select Create User
+
+Steps to assign only read access
+
+    Login to Jenkins
+    Go to Manage Jenkins
+    Go to Configure Global Security
+    Select Jenkins own User Database
+    Tick the checkbox “Allow Users to Sign Up”
+    Select Matrix-based security
+    Select the button “Add user or group”
+    Write User or Group name – write the user name of the user you created
+    Tick 3 read option under – Overall, Job, View
+    Save and Apply
+
+Login with the new user id and check if the changes are reflected
+
+3. How to provide user access from our account to others, User access for job , user permissions, try with build and read only access
+ https://youtu.be/QvFungzXI5s
+
+Login to Jenkins
+    Go to Manage Jenkins
+    Go to Configure Global Security
+    Select Jenkins own User Database
+    Tick the checkbox “Allow Users to Sign Up”
+    install role based plugin
+    Select Role based strategy
+    Select the button Manage jenkins -> “Manage and assign roles” 
+    In manage roles - Write User or Group name – write the user name of the user you created
+    Here add typeof permission in 'manage roles and in 'assign roles'
+    In global role to either developer or tester and also we have slave roles also
+    Tick 3 read option under – Overall, View
+	In Item roles give Role to add - developer/tester, Pattern - Dev.*/Test.*
+    Save and Apply
+	
+	In Assign roles 
+	In global roles 
+		Add User/group to add - give user name which you created earlier and select role 
+	In Item Roles
+		Add User/group to add - give user name which you created earlier and select role 
+	Apply and save
+
+
+4. About Think backup plugin - using this we can backup & restore server ( incase we loose server also we can restore it using this plugin)
+go to manage jenkins - manage plugin - in available install thin backup plugin - restart the jenkins -
+URL - https://devopscube.com/jenkins-backup-data-configurations/
+create folder under /var/lib/jenkins 
+a>Go to Manage Jenkins — > ThinBackup
+b> Click settings option. -> provide backup directory as 'created folder path /var/lib/jenkins/backup'
+c> check below options as mentioned
+check wait until jenkins/Hudson is idle to perform
+check backup build results
+check backup build archive
+check backup only builds marked to keep
+check clean up differential backups
+check move old backups to ZIP files
+save & appply
+d> click on backup now in jenkins
+e> now check in terminal path we can see full backup file with in backup folder
+f>even if we delete any job using backup we can rrestore it
+g> This backup will be restored in S3 bucket it will be discussed in AWS concept
+h> Thinbackup is an very important concept in jenkins
+i> thinkup plugin should be performed according to the CRON job set 
+
+
+
+
+
+

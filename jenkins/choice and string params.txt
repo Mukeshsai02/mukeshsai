@@ -1,0 +1,102 @@
+Choice and string params
+-----------------------------------
+
+Choice params is used to test the diff branches that are available in our git repo.
+
+After creating the pipeline if u want to test the choice parameter then 
+
+General - slct "This pjct is parameterized" under that slct choice parameter 
+Name - branches
+choices - master
+	- develop
+	- test
+Description - This parameter is used to git clone from branches
+
+- once done In pipeline it will shows 3 parameters,in that we can select either master or develop or test
+- we need to call the parameter in pipeline before executing.
+- In pipeline add the below code 
+
+parameters{
+	choice(
+	name : 'branches',
+	choices : [ 'master' ,'develop' ,'test'],
+	description : 'testing')
+}
+stages {
+	stage('git clone') {
+         steps {
+            git branch: '${branches}', url : 'https://github.com/saimtej/saimtej.git'
+        }
+	}
+}
+- Branch names should be same in both places
+
+string parameter:-
+---------------
+Name : Branch
+Default value : master (only this particular branch will build)
+Description : some text
+
+under parameters 
+	string(defaultValue : 'master', description :'master to build',name : 'Branch')
+	
+stages {
+	stage('git clone') {
+         steps {
+            git branch: '${Branch}', url : 'https://github.com/saimtej/saimtej.git'
+        }
+	}
+
+Example:
+--------------------------------------------------------
+pipeline {
+   agent any
+   environment {
+
+      sonar_url = 'http://172.31.20.15:9000'  
+      sonar_username = 'admin'          
+      sonar_password = 'admin'
+      nexusUrl = '172.31.12.54:8081'
+      artifact_version = '0.0.1'
+	}
+	tools {
+      // Install the Maven version configured as "M3" and add it to the path.
+	  jdk 'java8'
+      	  maven "Maven_3.3.9"
+   }
+	parameters{
+	string(defaultValue : 'master', description :'master to build',name : 'Branch')
+	choice(
+	name : 'branches',
+	choices : [ 'master' ,'develop' ,'test'],
+	description : 'testing')
+    }
+  
+stages {
+	stage('git clone') {
+         steps {
+            git branch '${branches}', url : 'https://github.com/saimtej/saimtej.git'
+        }
+	}
+	stage ('Compile and Build') {
+         steps {
+           sh '''
+           mvn clean install -U  -Dmaven.test.skip=true 
+           '''
+         }
+	}
+} 
+}
+
+
+
+upstream and downstream
+---------------------------------------
+
+if we are running multiple jobs and any dependency exists b/n the jobs then we can use upstream and downstream.
+For higher build we can place it in upstream and dependency will be downstream
+
+create 2 jobs
+job-1- select free style job and configure with git clone.
+In post-build actions - build other projects-job-2 - and select any one option.
+job-2 - select free style job and configure with "cd /var/lib/jenkins/workspace/job-1" and add maven 

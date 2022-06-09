@@ -1,0 +1,102 @@
+apt-get update -y
+apt-get update
+################### To install Jdk #############
+sudo apt install openjdk-8-jdk
+
+##############################Below steps to install maven in ubuntu server for 3.3.9 version ############################
+
+wget http://apache.mirrors.lucidnetworks.net/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz  - downloaded package tar.gz file using wget
+
+sudo mkdir -p /usr/local/apache-maven    - create apache-maven directory 
+
+sudo mv apache-maven-3.3.9-bin.tar.gz /usr/local/apache-maven     - created directory and moved package within the directory
+
+cd /usr/local/apache-maven    - moved to that path using cd
+
+sudo tar -xzvf apache-maven-3.3.9-bin.tar.gz    - after naviagting to path tar file is untar like unzipping
+
+Once this is done add to you environment variables by editing .bashrc:
+
+nano ~/.bashrc     -  In windows we set environnment variables if we install java or maven same as here we set env variables
+
+Env variables - suppose we install maven in any folder it works for only to that particular folder to works in any other root path or any other folder to work in any path as 
+centralised way as in .bashrc we need to set the below 4 lines code in .bashrc
+
+export M2_HOME=/usr/local/apache-maven/apache-maven-3.3.9   - creted M2_HOME variable and provided file path
+export M2=$M2_HOME/bin                                      - navigate to /bin it is within apache-maven-3.3.9
+export MAVEN_OPTS="-Xms256m -Xmx512m"                       - given permissions for same
+export PATH=$M2:$PATH                                       - given permissions  
+
+if not .bashrc we can use .profile
+even in .profile also we can set env variables do below way for .profile
+$ ls -ltr -> enter
+$ls -la ->enter
+
+then apply it by executing :
+. ~/.bashrc                - after doing above all reset with .bashrc to work all the steps we need to execute using .bashrc
+
+to open .bashrc file we can use vi or nano editors to edit it.
+
+#####working with maven steps ###########
+
+$git clone game-of-life project     - clone it form github
+$ls
+$ cd /github repo
+then start executing maven cmds as below
+Maven lifecycle - https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html   - In maven interview question will ask from these life cycle only
+- Only 7 steps of life cycle only asked in interview. (validate-compile-test-package-verify-install-deploy)
+> using install all the life cycle steps will execute at once
+$mvn clean install    - Type this cmd
+>And then deploy
+>Once JAR is created we can store it in nexus artifactory, using this JAR can be shared to other developers.
+> Entire practice workflow is done with backend in cmd prompt
+> If the build got success then code perfect with no error, any issue with code then build may fail like in any of the life cycle steps it fail. 
+Any test step fails then package wont create within the build.
+
+#####
+>If there is maven we need to remember pom.xml file.
+ > what is the need of pom.xml file - It conatins code dependencies with the pom file, how to execute steps for code will be written in pom file,
+ Main things to be remember in pom file is -model version, group id, artifactory id, version, packaging and name
+ 
+ > Jar created within below path
+ $cd game-of-life
+ $ cd ~c
+ $ cd gameoflife-build
+ $ ls
+ $ cd target
+ $ ls - jar will be created, name for jar is created through name mentioned in pom file
+ 
+ > Will place the created JARS within nexus artifactory
+ 
+ 
+ DBTS:
+ every time build run ainappudu maven build name overlap avadha
+ nexsus gurichi em leda
+ 
+ $cd game-of-life
+ $ls -la
+ $mvn clean  -- JAR created under target folder will be deleted and target folder also deletes.
+ Again to re install the JAR
+ $mvn package  - code will execute target folder recretes it and JAR will also created in it.
+ $cd ..
+ $ls -la       - .m2 folder creates it is as central repository permanent JAR will be created here.
+ >For any code updates done then every time build needs to be triggered and JAR will be updated compare to old one
+ 
+ 
+ Regarding the version compatibility.
+ -code is in spring boot application so we r using maven here 
+ - Developrs asked us to create maven 3.3.9 becoz to ur code only 3.3.9 is compatible and jdk8 version 
+.
+
+To save file in vi ediot - Esp + shft : + wq
+To unsave file in vi ediotr - Esp + shft : + q!
+
+ 
+ 
+ 
+ 
+
+
+
+
+

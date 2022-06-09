@@ -1,0 +1,56 @@
+ Suppose we have some different types of jobs in single server like freestyle and multi branch it's running in 1 server.
+if server get crashed then we need to configure everything from the begining to recover all the data without loss we use jenkins pipeline.
+Instaed of doing manually we use it pipeline. This jenkins pipeline will be place with in github source code, pipeline will be added with in source code.
+> There r 2 types of pipeline, 1 . Declarative 2. Scripted
+1 Declarative : Pipeline starts with 'pipeline'
+  pipeline {            - pipeline starts with pipeline
+   agent any{           - will be discussed in slave and master concept ( suppose instance is in t2 micro if its get full we cant go and make size full know 
+using agent any will tranfer work load to other server will integrate jenkins to new server )
+
+    tools {             - tools will be declared within this
+      // Install the Maven version configured as "M3" and add it to the path.
+	  jdk 'java8'
+      maven "Maven3.3.9"
+   }
+   
+stages                     - with in stages all the stage declared
+   {
+   stage('git clone') {   - defined what the particular stage will does
+         steps {           - for each stage  their will be step started and ended
+            // Get some code from a GitHub repository          ( code will be written inside step)
+            git 'https://github.com/snehitha-reddy/Game.git'
+        }
+	}
+	stage ('Compile and Build') {
+         steps {
+           sh '''
+           mvn clean install -U  -Dmaven.test.skip=true 
+           '''
+         }
+	}
+
+	}
+}
+
+- Create pipeline job and in pipeline option we can fetch code from git or pipeline script
+- If we fetch code from git then jenkins file should be added in source code else if we choose pipeline script then script will be written within it
+ 2 Scripted: Pipeline starts with node
+node("myAgent"){
+  timeout(unit: 'SECONDS', time: 5) {
+      stage ("One"){
+        sleep 10
+          echo 'hello'
+  }
+}
+}
+> Create a pipleline and select pipeline script then do scripting and run the job check whether it's working or not
+
+To do task:
+--------------
+> Do practice for customized port for jenkins browse it and do practice
+> How to provide user access from our account to others ( Practice role based and metric based)
+> User access for job , user permissions, try with build and read only access
+> About Think backup plugin - using this we can backup & restore server ( incase we loose server also we can restore it using this plugin)
+> Through backend how to restore files using terminal practice once on this also
+
+

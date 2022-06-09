@@ -1,0 +1,78 @@
+> For Sonarqube we require more hard disk so in aws EC2 instance we increase instance type from 't2' micro to 't2 xlarge' 
+> Installation steps were written in sonarinstallation doc 
+> Default port is xxxxx:9000
+> user name and pwd for sonar is 'admin' & 'admin'
+> we use sonar to check how much code quality , vulnerability, with in quality gate in default their will be minimum passing of 80% for code coverage
+>If instance stopped and started then we need to start sonar everytime in linux server
+> To navigate to sonar path below steps
+$ cd /opt/sonarqube-6.4/bin/linux-x86-64
+ls
+./sonar.sh start
+./sonar.sh status
+> In organization no one stops sonar here for practice purpose we stopping it
+> Go to sonar website and open port with :9000 then login with valid credentials
+> Click on administration - security - enter some token name like 'jenkins' and click on 'generate'
+> To integrate sonar with jenkins we require some token like this copy the token and store it
+
+> Open jenkins & Go to manage jenkins - click on manage credentials -click on stored scope to credentials - click on global credentials - then below steps
+  In 'Kind' select 'secret text' - in secret 'paste' copied token here - In description give name as 'sonar-cred' - click ok
+  
+> Open jenkins website go to manage jenkins - click on configure system -click on sonar server - check env variables - give name as 'sonarqube' & paste
+linux server private url asa http://xxxxxx:9000 and in server auth select sonar-cred then - apply and save
+(Here internally to understand to jenkins we use private ip)
+
+> In manage jenkins - configure cred - for added token there will be new jenkins token copy it and keep it aside
+
+> In jenkins file we need to add below lines 
+ stage ('Sonarqube Analysis'){
+           steps {
+           withSonarQubeEnv('sonarqube') {       */sonarqube name mentioned as in configure system /*
+           sh '''       /*usually in inside shell we need to declare cmds for 1 line it will we as sh '...'  for multiple lines we r declared as sh '''*/                  
+           mvn clean package org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false /*jacoco test cases plugin to be installed and after declaring either tru or false*/
+           mvn -e -B sonar:sonar -Dsonar.java.source=1.8 -Dsonar.host.url="${sonar_url}" -Dsonar.login="${sonar_username}" -Dsonar.password="${sonar_password}" -Dsonar.sourceEncoding=UTF-8
+           '''
+           }
+         }
+      }
+( For developers they give jacoco test cases to execute sonar, in interview we can tell it as we have used those tc's )
+- with in stages we need to add those lines
+> In beginning of code pipeline add env variables as below
+
+environment {
+
+      sonar_url = 'http://172.31.4.216:9000/'   /* linux server public url with sonar port */
+      sonar_username = 'admin'                  /* sonar website cred */
+      sonar_password = 'admin'
+      nexusUrl = '172.31.12.54:8081'
+      artifact_version = '0.0.1'
+
+ }
+
+> Add above lines of code in jenkins and run the job see the result and go to sonar dashboard and check whether the code integration happened r not
+> We can see code compatibility and vulnerabilities with in sonar dashboard.
+> We can see the bugs and code smells, dev can track the code easily to find the bugs and can check code quality easily.
+
+- We can set quality gate conditions saying above 50% code quality also it should execute like wise below is code to set script
+
+stage("Quality Gate"){
+  steps{
+     sleep(30)
+       script{
+         def qualitygate = waitForQualityGate()
+         if(qualitygate.status != "OK"){
+          error "Pipeline aborted due to quality gate failure: ${qualitygate.status}"
+           }
+          }
+         }
+       }
+
+
+aeeb00ba16961f8f3bb7c01897be3330327798e5
+
+4c9f12b2-4c6a-45ec-be7f-6ef0cd48cdb8
+
+                     
+Mukesh
+5f11fa603b7133542a7af2aa38af2b5505234c7e
+
+59e97474-7733-4575-a109-7b3913619452

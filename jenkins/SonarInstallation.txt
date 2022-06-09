@@ -1,0 +1,62 @@
+Installation sonarQube - 
+=============================
+apt-get update
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-6.4.zip
+unzip sonarqube-6.4.zip
+apt install unzip
+cd sonarqube-6.4/
+cd bin/
+cd linux-x86-64/
+vi sonar.sh
+un comment RUN_AS_USER =root
+
+/*wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227.zip
+unzip sonar-scanner-cli-3.2.0.1227.zip
+cd sonar-scanner-3.2.0.1227
+
+In Job Properties should add under the --> execute sonarqube -scanner--> Analysis properties
+----------------------------------------------------------------------------------------
+*/
+use cd .. until you find the conf dir
+cd conf
+vi sonar.properties
+ - #sonar.jdbc.username= admin
+ #sonar.jdbc.password= admin
+- save and close nano terminal (shft :wq)
+
+mv sonarqube-6.4 /opt/
+cd /etc/systemd/system
+vi sonar.service
+$sonarqube-6.4# nano /etc/systemd/system/sonar.service
+>paste below code in vi editor 
+
+[Unit]
+Description=SonarQube service
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+ExecStart=/opt/sonarqube-6.4/bin/linux-x86-64/sonar.sh start
+ExecStop=/opt/sonarqube-6.4/bin/linux-x86-64/sonar.sh stop
+
+User=root
+Group=root
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+cd --
+cd /opt/sonarqube-6.4/bin/linux-x86-64/
+
+ls
+./sonar.sh
+./sonar.sh start
+./sonar.sh status
+
+
+Sonar security token - d73db4301cc1a7f659b0e26f06f10ae04603c39b
+jenkins generated id for sonar - 	3b031dd5-999a-4256-b1df-af85c6dd96ec
+
+URL : https://www.vultr.com/docs/how-to-install-sonarqube-on-ubuntu-16-04

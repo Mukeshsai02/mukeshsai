@@ -1,0 +1,33 @@
+To install jenkins
+ - connect to EC2 & 
+ - switch to root 
+	- sudo -i
+- https://medium.com/dev-blogs/step-by-step-guide-to-install-jenkins-on-ubuntu-16-04-fba5f32ed402
+
+
+Jenkins Plugins
+-------------------------
+https://www.digitalocean.com/community/tutorials/how-to-install-jenkins-on-ubuntu-20-04
+
+
+First we need to install the 3rd party application in manage jenkins
+	Manage jenkins -> install Maven Integration plugin  
+	
+Setup the environment globally
+	Global Tool config ->
+		Add jdk name & java home from mvn -version
+		Add Maven name & maven home from mvn -version
+
+select the build and configure the build environment(Invoke top level maven)
+	Maven version will slect automatically from the global environment
+	In goals we need to pass instructions( clean package,clean)
+
+ 
+Create sonarqube in jenkins
+First we need to install the sonarqube in manage jenkins
+	Manage jenkins -> install sonarqube scanner,SonarQube Generic Coverage Plugin
+
+- create a new workspace with free style 
+- In configure 
+	- source code management - select git - add url - build
+	- Build - execute shell - add git cmd - build
