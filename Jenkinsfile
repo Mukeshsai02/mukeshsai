@@ -10,7 +10,7 @@ pipeline {
     {
         stage('git clone'){
             steps {
-                git 'https://github.com/saimtej/saimtej.git'
+                git 'https://github.com/Mukeshsai02/mukeshsai.git'
             }
         }
         stage('Compile and Build'){
