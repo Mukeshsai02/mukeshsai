@@ -1,0 +1,67 @@
+What is load balancing?
+• Load balancers are servers that forward internet traffic to multiple
+servers (EC2 Instances) downstream.
+
+ALB :-
+is to route the particular target groups.
+it will run through particular paths.
+CLB :-
+is to follow round  robin algorithm.
+if suppose same applic'n are running there in 10 instances in zone1 & 10 in zone2
+Every time it will run 1 alternative other servers.
+
+> Application load balancers is Layer 7 (HTTP)
+• Load balancing to multiple HTTP applications across machines(target groups)
+• Load balancing to multiple applications on the same machine
+(ex: containers)
+• Support for HTTP/2 and WebSocket
+• Support redirects (from HTTP to HTTPS for example)
+• Routing tables to different target groups:
+• Routing based on path in URL (example.com/users & example.com/posts)
+• Routing based on hostname in URL (one.example.com & other.example.com)
+• Routing based on Query String, Headers
+(example.com/users?id=123&order=false)
+• ALB are a great fit for micro services & container-based application
+(example: Docker & Amazon ECS)
+• Has a port mapping feature to redirect to a dynamic port in ECS
+
+
+s3
+------------------------------------
+aws s3 ls - To see the list of buckets
+aws s3 mb s3://s3-demo(new bucket name)  ->  To create a bucket name
+aws s3 mb s3://s3-demo123 --region us-east-2  -> create a bucket in specific region
+aws s3 ls s3://s3-demo  -> To display the items inside bucket.
+aws s3 rb s3://s3-demo   -> To remove the empty bucket   
+
+versioning(properties-enable version) - It is used to store the diff versions of data of same file in s3 .
+Ex:- if suppose for o.s versions are getting updated. all the versio will store in s3,whenever we need we can reuse it. 
+
+
+
+To Upload data from local to s3 bucket
+----------------------------------------------
+cd /var/www/html/
+touch tulasi.txt
+echo "uploading sample test file" > tulasi.txt
+cat tulasi 
+aws s3 cp /root/tulasi.txt s3://s3-ramya/
+
+/*
+cd ../..
+aws s3 sync /var/www/html/ s3://s3-demo123/
+*/
+
+
+https://aws.amazon.com/premiumsupport/knowledge-center/move-objects-s3-bucket/
+->aws s3 sync s3://DOC-EXAMPLE-BUCKET-SOURCE s3://DOC-EXAMPLE-BUCKET-TARGET
+
+
+
+Accessing using aws-cli
+---------------------------------------
+apt-get update -y
+aws configure
+aws s3 ls 		-> check s3 data
+aws ec2 describe-instances 
+aws ec2 describe-instances --output table -> displays in table format

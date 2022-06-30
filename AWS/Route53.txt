@@ -1,0 +1,12 @@
+DNS:-
+It is the backbone of the internet,which translates urls,hostnames into ipaddress.
+
+Route 53:-
+It is a domain registrar,where u can register ur own domains like 'example.com'
+
+Route 53 - Hosted Zones:-
+It is used to define how to route traffic to a domain & sub-domain.
+
+public hosted zone:- It contains records that specify how to route traffic on the internet.
+private hosted zone:- It contains records that specify how to route traffic within one or more vpcs. 
+ 
