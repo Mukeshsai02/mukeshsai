@@ -16,7 +16,7 @@ pipeline {
         stage('Compile and Build'){
             steps {
                 sh '''
-                mvn clean install -U -Dmaven.test.skip=true
+                mvn clean 
                 '''
             }
         }
